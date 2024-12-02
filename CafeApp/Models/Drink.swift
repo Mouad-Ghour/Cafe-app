@@ -8,7 +8,7 @@
 import Foundation
 
 enum DrinkType: String, CaseIterable{
-    case coffee = "Coffee"
+    case coffee = "Coffee"
     case tea = "Tea"
     case chocolate = "Chocolate"
 }

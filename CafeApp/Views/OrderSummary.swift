@@ -8,9 +8,9 @@
 import SwiftUI
 import MessageUI
 
-struct OrderSummaryView: View {
+struct OrderSummary: View {
     
-    @ObservableObject var viewModel: DrinkViewModel
+    @ObservedObject var viewModel: DrinkViewModel
     
     var body: some View{
         VStack{
@@ -40,13 +40,16 @@ struct OrderSummaryView: View {
         let size = viewModel.selectedSize.rawValue
         let extras = viewModel.extras
         let totalPrice = viewModel.total
-        
-        EmailService.shared.sendOrderEmail(
-            drinkType: drinkType,
-            size: size,
-            extras: extras,
-            totalPrice: totalPrice,
-            from: UIApplication.shared.windows.first?.rootViewController ?? UIViewController()
-        )
+
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+            let rootViewController = windowScene.windows.first?.rootViewController{
+                EmailService.shared.sendOrderEmail(
+                    drinkType: drinkType,
+                    size: size,
+                    extras: extras,
+                    totalPrice: totalPrice,
+                    from: rootViewController
+                )
+            }
     }
 }

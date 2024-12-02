@@ -49,9 +49,15 @@ struct ChooseDrink: View {
                         .disabled(!viewModel.canPurchase)
                 }
             }
-            .onChange(of: viewModel.selectedDrink) { _ in viewModel.calculateTotal()}
-            .onChange(of: viewModel.selectedSize) { _ in viewModel.calculateTotal()}
-            .onChange(of: viewModel.extras) { _ in viewModel.calculateTotal()}
+            .onChange(of: viewModel.selectedDrink) { newValue in
+                viewModel.calculateTotal()
+            }
+            .onChange(of: viewModel.selectedSize) { newValue in
+                viewModel.calculateTotal()
+            }
+            .onChange(of: viewModel.extras) { newValue in
+                viewModel.calculateTotal()
+            }
             .navigationTitle("Choose Drink")
         }
     }
