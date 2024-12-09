@@ -15,10 +15,10 @@
 		4D491E392CFDB9810072B00C /* CafeAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D491E382CFDB9810072B00C /* CafeAppUITests.swift */; };
 		4D491E3B2CFDB9810072B00C /* CafeAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D491E3A2CFDB9810072B00C /* CafeAppUITestsLaunchTests.swift */; };
 		4D4A136E2CFDBDE800A935BE /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A136D2CFDBDE800A935BE /* Drink.swift */; };
-		4D4A13702CFDBDFD00A935BE /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A136F2CFDBDFD00A935BE /* DrinkViewModel.swift */; };
-		4D4A13722CFDBE1400A935BE /* ChooseDrink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13712CFDBE1400A935BE /* ChooseDrink.swift */; };
-		4D4A13742CFDBE2900A935BE /* OrderSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13732CFDBE2900A935BE /* OrderSummary.swift */; };
-		4D4A13762CFDBE3E00A935BE /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13752CFDBE3E00A935BE /* EmailService.swift */; };
+		4D4A13702CFDBDFD00A935BE /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A136F2CFDBDFD00A935BE /* OrderViewModel.swift */; };
+		4D4A13722CFDBE1400A935BE /* OrderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */; };
+		4D4A13742CFDBE2900A935BE /* OrderSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */; };
+		4D4A13762CFDBE3E00A935BE /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13752CFDBE3E00A935BE /* MailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +50,10 @@
 		4D491E382CFDB9810072B00C /* CafeAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeAppUITests.swift; sourceTree = "<group>"; };
 		4D491E3A2CFDB9810072B00C /* CafeAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4D4A136D2CFDBDE800A935BE /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
-		4D4A136F2CFDBDFD00A935BE /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
-		4D4A13712CFDBE1400A935BE /* ChooseDrink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDrink.swift; sourceTree = "<group>"; };
-		4D4A13732CFDBE2900A935BE /* OrderSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummary.swift; sourceTree = "<group>"; };
-		4D4A13752CFDBE3E00A935BE /* EmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
+		4D4A136F2CFDBDFD00A935BE /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
+		4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSelectionView.swift; sourceTree = "<group>"; };
+		4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryView.swift; sourceTree = "<group>"; };
+		4D4A13752CFDBE3E00A935BE /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,8 +152,8 @@
 		4D4A136A2CFDBDBC00A935BE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4D4A13712CFDBE1400A935BE /* ChooseDrink.swift */,
-				4D4A13732CFDBE2900A935BE /* OrderSummary.swift */,
+				4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */,
+				4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 		4D4A136B2CFDBDC200A935BE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4D4A136F2CFDBDFD00A935BE /* DrinkViewModel.swift */,
+				4D4A136F2CFDBDFD00A935BE /* OrderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 		4D4A136C2CFDBDCC00A935BE /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4D4A13752CFDBE3E00A935BE /* EmailService.swift */,
+				4D4A13752CFDBE3E00A935BE /* MailView.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -307,10 +307,10 @@
 				4D491E202CFDB97F0072B00C /* ContentView.swift in Sources */,
 				4D4A136E2CFDBDE800A935BE /* Drink.swift in Sources */,
 				4D491E1E2CFDB97F0072B00C /* CafeAppApp.swift in Sources */,
-				4D4A13722CFDBE1400A935BE /* ChooseDrink.swift in Sources */,
-				4D4A13702CFDBDFD00A935BE /* DrinkViewModel.swift in Sources */,
-				4D4A13762CFDBE3E00A935BE /* EmailService.swift in Sources */,
-				4D4A13742CFDBE2900A935BE /* OrderSummary.swift in Sources */,
+				4D4A13722CFDBE1400A935BE /* OrderSelectionView.swift in Sources */,
+				4D4A13702CFDBDFD00A935BE /* OrderViewModel.swift in Sources */,
+				4D4A13762CFDBE3E00A935BE /* MailView.swift in Sources */,
+				4D4A13742CFDBE2900A935BE /* OrderSummaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

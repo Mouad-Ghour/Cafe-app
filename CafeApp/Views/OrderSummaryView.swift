@@ -8,48 +8,63 @@
 import SwiftUI
 import MessageUI
 
-struct OrderSummary: View {
-    
-    @ObservedObject var viewModel: DrinkViewModel
+struct OrderSummaryView: View {
+    @ObservedObject var viewModel: OrderViewModel
+    @State private var showMailView = false
+    @State private var showMailAlert = false
     
     var body: some View{
-        VStack{
-            Text("Order Summary")
-                .font(.title)
+        VStack(spacing: 20){
+            Text("Your order")
+                .font(.largeTitle)
             
-            Text("\(viewModel.selectedSize.rawValue) \(viewModel.selectedDrink.rawValue)")
-            if viewModel.extras.isEmpty{
-                Text("No extras")
-            } else {
-                ForEach(viewModel.extras, id:\.self) { extra in
-                        Text(extra)
+            Text(viewModel.summaryText)
+                .font(.title3)
+            
+            Text("Total: $\(String(format: "%.2f", viewModel.totalPrice))")
+                .font(.headline)
+            
+            Button("Order now for $\(String(format: "%.2f", viewModel.totalPrice))"){
+                if MFMailComposeViewController.canSendMail() {
+                    showMailView = true
+                }else{
+                    showMailView = false
                 }
             }
-            
-            Text("Total: $\(viewModel.total, specifier: "%.2f")")
-            
-            Button(action: sendEmail){
-                Text("Order now for $\(viewModel.total, specifier: "%.2f")")
-            }
             .padding()
+            .background(Color.purple)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+            
+        }
+        .padding()
+        .sheet(isPresented: $showMailView) {
+            MailView(subject: viewModel.summaryText,
+                     messageBody: emailBody(),
+                     recipients: ["coffee-m2sime@univ-rouen.fr"])
+        }
+        .alert(isPresented: $showMailView){
+            Alert(title: Text("Mail not set up"),
+                  message: Text("Please configure a mail account in your device."),
+                  dismissButton: .default(Text("OK")))
         }
     }
     
-    private func sendEmail(){
-        let drinkType = viewModel.selectedDrink.rawValue
-        let size = viewModel.selectedSize.rawValue
-        let extras = viewModel.extras
-        let totalPrice = viewModel.total
-
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-            let rootViewController = windowScene.windows.first?.rootViewController{
-                EmailService.shared.sendOrderEmail(
-                    drinkType: drinkType,
-                    size: size,
-                    extras: extras,
-                    totalPrice: totalPrice,
-                    from: rootViewController
-                )
-            }
+    private func emailBody() -> String {
+        var body = "Your order details:\n"
+        body += "Drink: \(viewModel.selectedDrink.rawValue) (\(viewModel.selectedSize.rawValue)) - $\(String(format: "%.2f", priceForDrink(type: viewModel.selectedDrink, size: viewModel.selectedSize)))\n"
+        
+        if viewModel.addSugar && viewModel.canAddSugar {
+            body += "Extras : Sugar (Free)\n"
+        }
+        
+        if viewModel.addWhippedCream {
+            body += "Extras : Whipped Cream ($1.50)\n"
+        }
+        
+        body += "\n Total: $\(String(format: "%.2f", viewModel.totalPrice))"
+        
+        return body
     }
 }
+

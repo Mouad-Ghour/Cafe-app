@@ -5,62 +5,42 @@
 //  Created by Ghourdou Mouad on 02/12/2024.
 //
 
-import UIKit
+import SwiftUI
 import MessageUI
 
-class EmailService: NSObject, MFMailComposeViewControllerDelegate {
+struct MailView: UIViewControllerRepresentable {
+    @Environment(\.dismiss) var dismiss
+    var subject: String
+    var messageBody: String
+    var recipients: [String]
     
-    static let shared = EmailService()
-    
-    private override init(){}
-    
-    func sendOrderEmail(
-        drinkType: String,
-        size: String,
-        extras: [String],
-        totalPrice: Double,
-        from viewController: UIViewController
-    ){
-        guard MFMailComposeViewController.canSendMail() else {
-            showMailError(from: viewController)
-            return
+    class Coordinator: NSObject, MFMailComposeViewControllerDelegate{
+        var parent: MailView
+        
+        
+        init(parent: MailView) {
+            self.parent = parent
         }
         
-        let mailComposer = MFMailComposeViewController()
-        mailComposer.mailComposeDelegate = self
-        mailComposer.setToRecipients(["coffee-m2sime@univ-rouen.fr"])
-        
-        let extrasDescription = extras.isEmpty ? "No extras" : extras.joined(separator: ", ")
-        mailComposer.setSubject("\(size) \(drinkType) with \(extrasDescription)")
-
-        let body = """
-        Order Summary:
-        - Drink: \(size) \(drinkType)
-        - Extras: \(extrasDescription)
-        - Total Price: $\(String(format: ".2f", totalPrice))
-        """
-        mailComposer.setMessageBody(body, isHTML: false)
-
-        viewController.present(mailComposer, animated: true, completion: nil)
+        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: (any Error)?) {
+            controller.dismiss(animated: true){
+                self.parent.dismiss()
+            }
+        }
     }
     
-    private func showMailError(from viewController: UIViewController){
-        let alert = UIAlertController(
-            title: "Error",
-            message: "Unable to send mail. Please ensure email is set up on your device.",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        viewController.present(alert, animated: true, completion: nil)
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(parent: self)
     }
     
-    func mailComposeController(
-        _ controller : MFMailComposeViewController,
-        didFinishWith result: MFMailComposeResult,
-        error: Error?
-    ){
-        controller.dismiss(animated: true, completion: nil)
+    func makeUIViewController(context: Context) -> MFMailComposeViewController {
+        let mail = MFMailComposeViewController()
+        mail.mailComposeDelegate = context.coordinator
+        mail.setSubject(subject)
+        mail.setToRecipients(recipients)
+        mail.setMessageBody(messageBody, isHTML: false)
+        return mail
     }
     
-    
+    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {    }
 }

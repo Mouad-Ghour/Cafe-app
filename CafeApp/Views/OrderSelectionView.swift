@@ -6,59 +6,91 @@
 //
 import SwiftUI
 
-struct ChooseDrink: View {
-    @StateObject private var viewModel = DrinkViewModel()
+struct OrderSelectionView: View {
     
-    var body: some View {
+    @StateObject var viewModel = OrderViewModel()
+    @State private var showingSummary = false
+    
+    var body: some View{
         NavigationView{
             Form{
-                Section(header: Text("Choose Your Drink")){
+                Section(header: Text("Drink")){
+                    //Radio
                     Picker("Drink", selection: $viewModel.selectedDrink){
-                        ForEach(DrinkType.allCases, id: \.self){ drink in
-                            Text(drink.rawValue).tag(drink)
+                        ForEach(DrinkType.allCases, id: \.self) { drink in
+                            HStack {
+                                Text(drink.rawValue)
+                                Spacer()
+                                Text("$ \(String(format: "%.2f", priceForDrink(type: drink, size: viewModel.selectedSize)))").foregroundColor(.secondary)
+                            }
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    
-                    Picker("Size", selection: $viewModel.selectedSize){
-                        ForEach(DrinkType.allCases, id: \.self) { drink in
-                            Text(drink.rawValue).tag(drink)
+                    .pickerStyle(.inline)
+                }
+                
+                Section(header: Text("Size")){
+                    Picker("Size", selection: $viewModel.selectedSize) {
+                        ForEach(DrinkSize.allCases, id: \.self){ size in
+                            Text(size.rawValue)
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
                 Section(header: Text("Extras")){
-                    Toggle("Sugar", isOn: Binding(
-                        get: {viewModel.extras.contains("Sugar")},
-                        set: {if $0 {viewModel.extras.append("Sugar") } else { viewModel.extras.removeAll { $0 == "Sugar" } } }
-                    ))
-                    .disabled(viewModel.selectedDrink == .chocolate)
-                
-                    Toggle("Whipped Cream ($1.50)", isOn: Binding(
-                        get: { viewModel.extras.contains("Whipped Cream") },
-                        set: { if $0 { viewModel.extras.append("Whiped Cream") } else { viewModel.extras.removeAll {$0 == "Whipped Cream" } } }
-                    ))
-                }
-                
-                Section {
-                    Text("Total: $\(viewModel.total, specifier: "%.2f")")
-                        .foregroundColor(viewModel.canPurchase ? .black : .red)
+                    Toggle(isOn: $viewModel.addSugar){
+                        HStack {
+                            Text("Sugar")
+                            Spacer()
+                            Text("Free")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .disabled(!viewModel.canAddSugar)
                     
-                    NavigationLink("Purchase", destination: OrderSummary(viewModel: viewModel))
-                        .disabled(!viewModel.canPurchase)
+                    Toggle(isOn: $viewModel.addWhippedCream){
+                        HStack {
+                            Text("Whipped Cream")
+                            Spacer()
+                            Text("$ 1.50")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+                
+                Section(header: Text("Total")) {
+                    let totalStr = "$ " + String(format: "%.2f", viewModel.totalPrice)
+                    VStack(alignment: .leading) {
+                        Text(totalStr)
+                            .font(.title3)
+                            .foregroundColor(viewModel.isOverCredit ? .red : .primary)
+                        Text("$ \(String(format: "%.2f", viewModel.availableCredit)) on your card")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        
+                        if viewModel.isOverCredit {
+                            Text("You don't have enough credit.")
+                                .font(.footnote)
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                
+                Section{
+                    Button(action: {
+                        showingSummary = true
+                    }){
+                        Text("Purchase")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .disabled(viewModel.isOverCredit)
                 }
             }
-            .onChange(of: viewModel.selectedDrink) { newValue in
-                viewModel.calculateTotal()
+            .navigationTitle("Choose Your Drink")
+            .sheet(isPresented: $showingSummary){
+                OrderSummaryView(viewModel: viewModel)
             }
-            .onChange(of: viewModel.selectedSize) { newValue in
-                viewModel.calculateTotal()
-            }
-            .onChange(of: viewModel.extras) { newValue in
-                viewModel.calculateTotal()
-            }
-            .navigationTitle("Choose Drink")
         }
     }
 }
+
