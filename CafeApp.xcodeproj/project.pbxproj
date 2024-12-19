@@ -19,6 +19,8 @@
 		4D4A13722CFDBE1400A935BE /* OrderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */; };
 		4D4A13742CFDBE2900A935BE /* OrderSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */; };
 		4D4A13762CFDBE3E00A935BE /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A13752CFDBE3E00A935BE /* MailView.swift */; };
+		4DD4F9A62D145FF30094C6B1 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD4F9A52D145FF30094C6B1 /* DrinkRepository.swift */; };
+		4DD4F9A82D1460650094C6B1 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD4F9A72D1460650094C6B1 /* Injector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSelectionView.swift; sourceTree = "<group>"; };
 		4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryView.swift; sourceTree = "<group>"; };
 		4D4A13752CFDBE3E00A935BE /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		4DD4F9A52D145FF30094C6B1 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
+		4DD4F9A72D1460650094C6B1 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,14 +108,15 @@
 		4D491E1C2CFDB97F0072B00C /* CafeApp */ = {
 			isa = PBXGroup;
 			children = (
-				4D4A136C2CFDBDCC00A935BE /* Services */,
-				4D4A136B2CFDBDC200A935BE /* ViewModels */,
-				4D4A136A2CFDBDBC00A935BE /* Views */,
-				4D4A13692CFDBDB300A935BE /* Models */,
+				4D4A136C2CFDBDCC00A935BE /* services */,
+				4D4A136B2CFDBDC200A935BE /* viewmodel */,
+				4D4A136A2CFDBDBC00A935BE /* view */,
+				4D4A13692CFDBDB300A935BE /* data */,
 				4D491E1D2CFDB97F0072B00C /* CafeAppApp.swift */,
 				4D491E1F2CFDB97F0072B00C /* ContentView.swift */,
 				4D491E212CFDB9800072B00C /* Assets.xcassets */,
 				4D491E232CFDB9800072B00C /* Preview Content */,
+				4DD4F9A72D1460650094C6B1 /* Injector.swift */,
 			);
 			path = CafeApp;
 			sourceTree = "<group>";
@@ -141,37 +146,38 @@
 			path = CafeAppUITests;
 			sourceTree = "<group>";
 		};
-		4D4A13692CFDBDB300A935BE /* Models */ = {
+		4D4A13692CFDBDB300A935BE /* data */ = {
 			isa = PBXGroup;
 			children = (
 				4D4A136D2CFDBDE800A935BE /* Drink.swift */,
+				4DD4F9A52D145FF30094C6B1 /* DrinkRepository.swift */,
 			);
-			path = Models;
+			path = data;
 			sourceTree = "<group>";
 		};
-		4D4A136A2CFDBDBC00A935BE /* Views */ = {
+		4D4A136A2CFDBDBC00A935BE /* view */ = {
 			isa = PBXGroup;
 			children = (
 				4D4A13712CFDBE1400A935BE /* OrderSelectionView.swift */,
 				4D4A13732CFDBE2900A935BE /* OrderSummaryView.swift */,
 			);
-			path = Views;
+			path = view;
 			sourceTree = "<group>";
 		};
-		4D4A136B2CFDBDC200A935BE /* ViewModels */ = {
+		4D4A136B2CFDBDC200A935BE /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
 				4D4A136F2CFDBDFD00A935BE /* OrderViewModel.swift */,
 			);
-			path = ViewModels;
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
-		4D4A136C2CFDBDCC00A935BE /* Services */ = {
+		4D4A136C2CFDBDCC00A935BE /* services */ = {
 			isa = PBXGroup;
 			children = (
 				4D4A13752CFDBE3E00A935BE /* MailView.swift */,
 			);
-			path = Services;
+			path = services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,9 +310,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD4F9A62D145FF30094C6B1 /* DrinkRepository.swift in Sources */,
 				4D491E202CFDB97F0072B00C /* ContentView.swift in Sources */,
 				4D4A136E2CFDBDE800A935BE /* Drink.swift in Sources */,
 				4D491E1E2CFDB97F0072B00C /* CafeAppApp.swift in Sources */,
+				4DD4F9A82D1460650094C6B1 /* Injector.swift in Sources */,
 				4D4A13722CFDBE1400A935BE /* OrderSelectionView.swift in Sources */,
 				4D4A13702CFDBDFD00A935BE /* OrderViewModel.swift in Sources */,
 				4D4A13762CFDBE3E00A935BE /* MailView.swift in Sources */,
